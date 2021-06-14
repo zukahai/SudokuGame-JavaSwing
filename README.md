@@ -1,4 +1,4 @@
-## <p align="center"> Làm Game Sudokui Bằng Java </p>
+## <p align="center"> Làm Game Sudoku Bằng Java </p>
 <p align="center"> <img src="https://github.com/zukahai/HaiZuka/blob/master/Images/Sudoku/1.png" alt="Tieude" /> </p>
 
 ## Lập Trình Game Sudoku Bằng Java
