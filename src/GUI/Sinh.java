@@ -1,15 +1,15 @@
-package Sudoku;
+package GUI;
 
 import java.io.FileWriter;
 import java.util.Random;
  
-public final class ss
+public final class Sinh
 {
 
     private Random            myRandom;
     private int[][]        valueCell, solution;
 
-    public ss()
+    public Sinh()
     {
         myRandom = new Random();
     }
@@ -328,7 +328,7 @@ public final class ss
     }
     public static void main(String[] args) {
     	for (int i = 0; i < 1000; i++) {
-    		ss k = new ss();
+    		Sinh k = new Sinh();
     		k.generate();
     	}
 	}

@@ -1,7 +1,6 @@
-package Sudoku;
+package GUI;
 
 import java.awt.*;
-import Sudoku.HighScore;
 import java.awt.event.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -10,16 +9,6 @@ import java.net.URLConnection;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-
-import Game2048.Game2048;
-import GameLatHinh.GameLatHinh;
-import GameLytoDifferentColor.GameLytoDifferentColor;
-import GameSapXepSo.GameSapXepSo;
-import GameTicTacTo.GameTicTacToe;
-import gameCaro.CaRo;
-import gameCoTrangDen.gameCoTrangDen;
-import gameDoMin.gameDoMin;
-import snakeGame.snakeGame;
 
 public class Sudoku extends JFrame implements ActionListener, KeyListener {
 	String S[] = {"543691728987432165261875934634519872872346591195728643428957316716283459359164287", 
@@ -5437,22 +5426,23 @@ public class Sudoku extends JFrame implements ActionListener, KeyListener {
 		super("VKU - Sudoku");
 		LV = k;
 		cn = init();
+		timer.start();
 	}
 	public Container init() {
 		Container cn = this.getContentPane();
 		pn2 = new JPanel();
 		pn2.setLayout(new FlowLayout());
 		time_lb = new JLabel("00:00:00:00");
-		sls_lb = new JLabel("Có thể sai 3 lần");
+		sls_lb = new JLabel("Can be wrong 3 more times");
 		
 		newGame_bt = new JButton("New Game");
 		newGame_bt.addActionListener(this);
 		highScore_bt = new JButton("High Score");
 		highScore_bt.addActionListener(this);
 		
-		lv.addItem("Dễ");
-		lv.addItem("Trung bình");
-		lv.addItem("Khó");
+		lv.addItem("Easy");
+		lv.addItem("Medium");
+		lv.addItem("Hard");
 		lv.setSelectedIndex(LV);
 		
 		
@@ -5592,7 +5582,7 @@ public class Sudoku extends JFrame implements ActionListener, KeyListener {
 			new Sudoku(lv.getSelectedIndex()).timer.start();
 			this.dispose();
 		} else if (e.getActionCommand().equals(highScore_bt.getText())) {
-			new HighScore(LV + 1);
+			
 		} else {
 			String s = e.getActionCommand();
 			int k = s.indexOf(32);
@@ -5609,7 +5599,7 @@ public class Sudoku extends JFrame implements ActionListener, KeyListener {
 		}
 	}
 	public static void main(String[] args) {
-		new Sudoku(0).timer.start();
+		new Sudoku(0);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -5634,31 +5624,6 @@ public class Sudoku extends JFrame implements ActionListener, KeyListener {
 							if (a[i][j] != A[i][j])
 								check = false;
 					if (check) {
-						String str1 = JOptionPane.showInputDialog("Bạn đã chiến thắng" + 
-								"\n" + "Nhập tên (và trường) của bạn để lưu lại số điểm này nhé\n" +
-								"(Tiếng Việt không dấu)");
-						String sdt = "";
-						String checkSdt = "^0[0-9]{9}";
-						do {
-							sdt = JOptionPane.showInputDialog("Nhập số điện thoại của bạn:\n(Dùng để trao quà)");
-							if (!sdt.matches(checkSdt))
-								JOptionPane.showMessageDialog(null, "Số điện thoại không đúng\n" + "Vui lòng nhập lại");
-						} while(!sdt.matches(checkSdt));
-						JOptionPane.showMessageDialog(null, "Đã lưu điểm");
-						str1 = str1.replace(" ", "%20");
-						try {
-							URL url = new URL("https://haizukon.000webhostapp.com/HighScore/Sudoku/level_" + (LV + 1) + "?vkuName=" + str1 + "&score=" + time_lb.getText() + "&sdt=" + sdt);
-							URLConnection urlConnection = url.openConnection();
-							HttpURLConnection connection = null;
-							if(urlConnection instanceof HttpURLConnection) {
-								connection = (HttpURLConnection) urlConnection;
-							}
-							BufferedReader in = new BufferedReader(
-							new InputStreamReader(connection.getInputStream()));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
 						new Sudoku(LV).timer.start();
 						this.dispose();
 					}
@@ -5667,10 +5632,10 @@ public class Sudoku extends JFrame implements ActionListener, KeyListener {
 					NO--;
 					a[I][J] = -1;
 					bt[I][J].setForeground(Color.red);
-					sls_lb.setText("Có thể sai " + NO + " lần");
+					sls_lb.setText("Can be wrong " + + NO + " more times");
 					if (NO == -1) {
-						JOptionPane.showMessageDialog(null, "Bạn đã sai 3 lần.\nHãy cùng chơi lại nhé");
-						sls_lb.setText("Bạn đã thua");
+						JOptionPane.showMessageDialog(null, "You loss");
+						sls_lb.setText("You loss");
 						new Sudoku(LV).timer.start();
 						this.dispose();
 					}
